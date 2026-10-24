@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Khuu Hai Nguyen — Pentest Intern</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #f8f9fb;
+  --surface: #ffffff;
+  --text: #111318;
+  --text-sec: #5a5f72;
+  --text-muted: #9097ab;
+  --accent: #1a56db;
+  --accent-light: #eff4ff;
+  --accent-border: #c7d9ff;
+  --border: #e4e7ef;
+  --border-strong: #cdd2df;
+  --green: #0d7a5f;
+  --green-bg: #ecfdf5;
+  --tag-bg: #f0f2f7;
+  --tag-text: #3d4460;
+  --mono: 'JetBrains Mono', monospace;
+  --sans: 'Inter', sans-serif;
+  --radius: 8px;
+  --radius-lg: 14px;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: var(--sans);
+  background: var(--bg);
+  color: var(--text);
+  font-size: 15px;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
+
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+.container {
+  max-width: 780px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* NAV */
+nav {
+  position: sticky;
+  top: 0;
+  background: rgba(248,249,251,0.88);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+  z-index: 100;
+  padding: 0;
+}
+.nav-inner {
+  max-width: 780px;
+  margin: 0 auto;
+  padding: 14px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.nav-logo {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text);
+  letter-spacing: -0.01em;
+}
+.nav-logo span {
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--accent);
+  background: var(--accent-light);
+  border: 1px solid var(--accent-border);
+  padding: 2px 8px;
+  border-radius: 4px;
+  margin-left: 10px;
+}
+.nav-links {
+  display: flex;
+  gap: 24px;
+  list-style: none;
+}
+.nav-links a {
+  font-size: 13px;
+  color: var(--text-sec);
+  font-weight: 400;
+}
+.nav-links a:hover { color: var(--text); text-decoration: none; }
+
+/* HERO */
+.hero {
+  padding: 80px 0 64px;
+  border-bottom: 1px solid var(--border);
+}
+.hero-label {
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--accent);
+  letter-spacing: 0.06em;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.hero-label::before {
+  content: '';
+  display: inline-block;
+  width: 20px;
+  height: 1px;
+  background: var(--accent);
+}
+h1 {
+  font-size: clamp(32px, 5vw, 46px);
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+  margin-bottom: 20px;
+  color: var(--text);
+}
+.hero-desc {
+  font-size: 16px;
+  color: var(--text-sec);
+  max-width: 560px;
+  line-height: 1.7;
+  margin-bottom: 32px;
+}
+.hero-contacts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 32px;
+}
+.contact-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  color: var(--text-sec);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  padding: 6px 14px;
+  border-radius: 20px;
+  transition: border-color 0.15s;
+}
+.contact-pill svg { flex-shrink: 0; }
+.contact-pill:hover { border-color: var(--border-strong); text-decoration: none; color: var(--text); }
+
+.hero-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--accent);
+  color: #fff;
+  font-size: 14px;
+  font-weight: 500;
+  padding: 10px 22px;
+  border-radius: var(--radius);
+  transition: background 0.15s;
+}
+.hero-cta:hover { background: #1548c5; text-decoration: none; color: #fff; }
+
+/* SECTION */
+section { padding: 64px 0; border-bottom: 1px solid var(--border); }
+section:last-child { border-bottom: none; }
+
+.section-eyebrow {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--text-muted);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 32px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.section-eyebrow::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+
+h2 {
+  font-size: 22px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: var(--text);
+}
+
+/* SKILLS */
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 12px;
+}
+.skill-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 18px 20px;
+}
+.skill-card-label {
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  margin-bottom: 12px;
+}
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.tag {
+  font-size: 12.5px;
+  color: var(--tag-text);
+  background: var(--tag-bg);
+  padding: 3px 10px;
+  border-radius: 4px;
+  font-family: var(--mono);
+}
+.tag.accent {
+  color: var(--accent);
+  background: var(--accent-light);
+}
+
+/* PROJECTS */
+.project-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 28px 28px;
+  margin-bottom: 16px;
+  transition: border-color 0.15s;
+}
+.project-card:hover { border-color: var(--border-strong); }
+.project-card:last-child { margin-bottom: 0; }
+
+.project-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 12px;
+}
+.project-title {
+  font-size: 17px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--text);
+  margin-bottom: 4px;
+}
+.project-meta {
+  font-size: 12.5px;
+  color: var(--text-muted);
+  font-family: var(--mono);
+}
+.project-role {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--green);
+  background: var(--green-bg);
+  padding: 4px 10px;
+  border-radius: 4px;
+  white-space: nowrap;
+}
+.project-desc {
+  font-size: 14px;
+  color: var(--text-sec);
+  line-height: 1.65;
+  margin-bottom: 16px;
+}
+.project-highlights {
+  list-style: none;
+  margin-bottom: 18px;
+}
+.project-highlights li {
+  font-size: 13.5px;
+  color: var(--text-sec);
+  padding: 4px 0 4px 16px;
+  position: relative;
+  line-height: 1.6;
+}
+.project-highlights li::before {
+  content: '—';
+  position: absolute;
+  left: 0;
+  color: var(--border-strong);
+  font-size: 12px;
+}
+
+/* CERTS */
+.certs-list {
+  display: grid;
+  gap: 10px;
+}
+.cert-item {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 14px 18px;
+}
+.cert-icon {
+  width: 36px;
+  height: 36px;
+  background: var(--accent-light);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.cert-name {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text);
+  margin-bottom: 2px;
+}
+.cert-date {
+  font-size: 12px;
+  color: var(--text-muted);
+  font-family: var(--mono);
+}
+.cert-issuer {
+  margin-left: auto;
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+/* ACTIVITIES */
+.activity-item {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 24px;
+  padding-bottom: 24px;
+  border-bottom: 1px solid var(--border);
+}
+.activity-item:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+.activity-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--accent);
+  flex-shrink: 0;
+  margin-top: 7px;
+}
+.activity-date {
+  font-size: 12px;
+  font-family: var(--mono);
+  color: var(--text-muted);
+  margin-bottom: 4px;
+}
+.activity-name {
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--text);
+  margin-bottom: 4px;
+}
+.activity-desc {
+  font-size: 13.5px;
+  color: var(--text-sec);
+}
+
+/* EDU */
+.edu-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 24px 28px;
+}
+.edu-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
+  margin-bottom: 8px;
+}
+.edu-school {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text);
+}
+.edu-major {
+  font-size: 14px;
+  color: var(--accent);
+  margin-bottom: 4px;
+}
+.edu-period {
+  font-size: 12px;
+  font-family: var(--mono);
+  color: var(--text-muted);
+  white-space: nowrap;
+}
+.edu-desc {
+  font-size: 13.5px;
+  color: var(--text-sec);
+  line-height: 1.65;
+}
+.edu-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 12px;
+  font-weight: 500;
+  color: #92400e;
+  background: #fef3c7;
+  border: 1px solid #fde68a;
+  padding: 4px 10px;
+  border-radius: 4px;
+  margin-top: 12px;
+}
+
+/* FOOTER */
+footer {
+  padding: 40px 0;
+  text-align: center;
+}
+.footer-text {
+  font-size: 13px;
+  color: var(--text-muted);
+  font-family: var(--mono);
+}
+
+@media (max-width: 600px) {
+  .nav-links { display: none; }
+  .hero { padding: 56px 0 48px; }
+  .project-header { flex-direction: column; }
+  .edu-header { flex-direction: column; }
+  .activity-item { flex-direction: column; gap: 8px; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <div class="nav-logo">
+      Khuu Hai Nguyen
+      <span>Pentest Intern</span>
+    </div>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#certs">Certs</a></li>
+    </ul>
+  </div>
+</nav>
+
+<div class="container">
+
+  <!-- HERO -->
+  <section class="hero" id="about">
+    <div class="hero-label">Information Security · Penetration Testing</div>
+    <h1>Khuu Hai Nguyen</h1>
+    <p class="hero-desc">
+      Third-year Information Assurance student at FPT University, Can Tho. Building toward a career in penetration testing and Red Team operations — currently focused on web vulnerabilities, network protocols, and applied security research.
+    </p>
+    <div class="hero-contacts">
+      <a href="mailto:nguyenkhce200326@gmail.com" class="contact-pill">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+        nguyenkhce200326@gmail.com
+      </a>
+      <a href="tel:0898980749" class="contact-pill">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.15 13a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.06 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        0898 980 749
+      </a>
+      <span class="contact-pill">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+        Ninh Kieu, Can Tho
+      </span>
+    </div>
+    <a href="mailto:nguyenkhce200326@gmail.com" class="hero-cta">
+      Get in touch
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14m-7-7 7 7-7 7"/></svg>
+    </a>
+  </section>
+
+  <!-- EDUCATION -->
+  <section id="education">
+    <p class="section-eyebrow">Education</p>
+    <div class="edu-card">
+      <div class="edu-header">
+        <div>
+          <div class="edu-school">FPT University — Can Tho Campus</div>
+          <div class="edu-major">Information Assurance (An toàn thông tin)</div>
+        </div>
+        <div class="edu-period">2024 — 2028</div>
+      </div>
+      <p class="edu-desc">
+        Foundational knowledge in web technologies, network protocols (TCP/IP, HTTP/HTTPS), and web development. Active participant in Capture the Flag (CTF) competitions and practicing common web vulnerabilities to build a foundation for penetration testing.
+      </p>
+      <div class="edu-badge">
+        🏆 30% Merit Scholarship — 2024
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section id="projects">
+    <p class="section-eyebrow">Projects</p>
+
+    <div class="project-card">
+      <div class="project-header">
+        <div>
+          <div class="project-title">Prompt Injection Detection Pipeline</div>
+          <div class="project-meta">05/2026 — 06/2026</div>
+        </div>
+        <div class="project-role">Team Leader · 6 members</div>
+      </div>
+      <p class="project-desc">
+        Designed and led development of an ML pipeline to detect Prompt Injection attacks — a critical LLM security threat. Evaluated transformer-based models against state-of-the-art baselines.
+      </p>
+      <ul class="project-highlights">
+        <li>Proposed and designed the full pipeline architecture for Prompt Injection detection (direct and indirect attacks)</li>
+        <li>Handled data sourcing, preprocessing, and feature engineering for the security dataset</li>
+        <li>Trained and evaluated DistilBERT and BERT models; compared against PromptGuard baseline</li>
+        <li>Analyzed model effectiveness and documented detection performance across attack types</li>
+      </ul>
+      <div class="tags">
+        <span class="tag accent">Security / NLP</span>
+        <span class="tag">Python</span>
+        <span class="tag">BERT</span>
+        <span class="tag">DistilBERT</span>
+        <span class="tag">ML Pipeline</span>
+        <span class="tag">Prompt Injection</span>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-header">
+        <div>
+          <div class="project-title">Cinema Management System</div>
+          <div class="project-meta">03/2026 — 04/2026</div>
+        </div>
+        <div class="project-role">Team Leader · 6 members</div>
+      </div>
+      <p class="project-desc">
+        Led a team to build a full-featured desktop application for cinema operations, from database design to UI implementation.
+      </p>
+      <ul class="project-highlights">
+        <li>Designed the full database schema — tables, relationships, constraints, primary/foreign keys</li>
+        <li>Implemented SQL queries and stored procedures for ticketing, payments, and revenue reporting</li>
+        <li>Built the application UI using Python Tkinter with full database connectivity</li>
+      </ul>
+      <div class="tags">
+        <span class="tag">Python</span>
+        <span class="tag">SQL Server</span>
+        <span class="tag">Tkinter</span>
+        <span class="tag">Database Design</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section id="skills">
+    <p class="section-eyebrow">Skills</p>
+    <div class="skills-grid">
+      <div class="skill-card">
+        <div class="skill-card-label">Security</div>
+        <div class="tags">
+          <span class="tag accent">SQL Injection</span>
+          <span class="tag accent">XSS</span>
+          <span class="tag accent">CSRF</span>
+          <span class="tag accent">Path Traversal</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-card-label">Tools</div>
+        <div class="tags">
+          <span class="tag">Burp Suite</span>
+          <span class="tag">Nmap</span>
+          <span class="tag">Metasploit</span>
+          <span class="tag">Wireshark</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-card-label">Programming</div>
+        <div class="tags">
+          <span class="tag">Python</span>
+          <span class="tag">HTML / CSS</span>
+          <span class="tag">SQL</span>
+          <span class="tag">Bootstrap</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-card-label">Systems</div>
+        <div class="tags">
+          <span class="tag">Kali Linux</span>
+          <span class="tag">Windows</span>
+          <span class="tag">TCP/IP</span>
+          <span class="tag">HTTP/HTTPS</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CERTS -->
+  <section id="certs">
+    <p class="section-eyebrow">Certifications</p>
+    <div class="certs-list">
+      <div class="cert-item">
+        <div class="cert-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1a56db" stroke-width="2"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"/></svg>
+        </div>
+        <div>
+          <div class="cert-name">CyberOps Associate</div>
+          <div class="cert-date">24 Mar 2026</div>
+        </div>
+        <div class="cert-issuer">Cisco</div>
+      </div>
+      <div class="cert-item">
+        <div class="cert-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1a56db" stroke-width="2"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"/></svg>
+        </div>
+        <div>
+          <div class="cert-name">CCNA: Enterprise Networking, Security & Automation</div>
+          <div class="cert-date">24 Jul 2026</div>
+        </div>
+        <div class="cert-issuer">Cisco</div>
+      </div>
+      <div class="cert-item">
+        <div class="cert-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1a56db" stroke-width="2"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"/></svg>
+        </div>
+        <div>
+          <div class="cert-name">CCNA: Switching, Routing & Wireless Essentials</div>
+          <div class="cert-date">25 Mar 2026</div>
+        </div>
+        <div class="cert-issuer">Cisco</div>
+      </div>
+      <div class="cert-item">
+        <div class="cert-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1a56db" stroke-width="2"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"/></svg>
+        </div>
+        <div>
+          <div class="cert-name">CCNA: Introduction to Networks</div>
+          <div class="cert-date">13 Nov 2025</div>
+        </div>
+        <div class="cert-issuer">Cisco</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ACTIVITIES -->
+  <section id="activities">
+    <p class="section-eyebrow">Activities</p>
+    <div class="activity-item">
+      <div class="activity-dot"></div>
+      <div>
+        <div class="activity-date">2025 — Present</div>
+        <div class="activity-name">FSEC Club — Member</div>
+        <div class="activity-desc">Cybersecurity workshops, specialized sessions, and CTF competitions. Building technical depth and connections within the Vietnamese security community.</div>
+      </div>
+    </div>
+    <div class="activity-item">
+      <div class="activity-dot"></div>
+      <div>
+        <div class="activity-date">Mar — Apr 2025</div>
+        <div class="activity-name">International Exchange Program — Thailand</div>
+        <div class="activity-desc">Improved English communication skills in an international environment. Developed cross-cultural adaptability through interactions with participants from diverse backgrounds.</div>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<footer>
+  <div class="footer-text">nguyen.khuuhai · nguyenkhce200326@gmail.com</div>
+</footer>
+
+</body>
+</html>
