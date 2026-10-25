@@ -340,6 +340,41 @@ footer { padding: 32px 0; text-align: center; }
 </style>
 </head>
 <body>
+  <div id="intro">
+  <div id="intro-content">
+    <div id="intro-line">Welcome to</div>
+    <div id="intro-name">Nguyen's Portfolio</div>
+  </div>
+</div>
+
+<style>
+#intro {
+  position: fixed; inset: 0; z-index: 9999;
+  background: #111318;
+  display: flex; align-items: center; justify-content: center;
+  animation: introFade 0.5s ease 2.2s forwards;
+}
+#intro-content { text-align: center; }
+#intro-line {
+  font-family: var(--mono); font-size: 13px; color: #1a56db;
+  letter-spacing: 0.2em; text-transform: uppercase;
+  opacity: 0;
+  animation: introUp 0.6s ease 0.3s forwards;
+}
+#intro-name {
+  font-family: var(--sans); font-size: clamp(28px, 5vw, 52px);
+  font-weight: 700; color: #ffffff; letter-spacing: -0.03em;
+  opacity: 0;
+  animation: introUp 0.7s ease 0.7s forwards;
+}
+@keyframes introUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes introFade {
+  to { opacity: 0; pointer-events: none; }
+}
+</style>
 
 <nav>
   <div class="nav-inner">
@@ -349,6 +384,8 @@ footer { padding: 32px 0; text-align: center; }
       <li><a href="#projects">Projects</a></li>
       <li><a href="#skills">Skills</a></li>
       <li><a href="#certs">Certs</a></li>
+      <li><a href="#activities">Activities</a></li>
+      <li><a href="#contact">Contact</a></li>
     </ul>
   </div>
 </nav>
