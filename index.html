@@ -67,6 +67,23 @@ a:hover { text-decoration: underline; }
 }
 .reveal.visible { opacity: 1; transform: translateY(0); }
 
+/* SCHOLARSHIP POPUP */
+.edu-badge-wrap { position: relative; display: inline-block; }
+.badge-popup {
+  position: absolute; left: 0; top: calc(100% + 8px);
+  width: 220px; border-radius: 10px;
+  border: 1px solid var(--border);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+  opacity: 0; pointer-events: none;
+  transform: translateY(-8px);
+  transition: opacity 0.25s ease, transform 0.25s ease;
+  z-index: 50;
+}
+.edu-badge-wrap:hover .badge-popup {
+  opacity: 1; pointer-events: all;
+  transform: translateY(0);
+}
+  
 /* NAV */
 nav {
   position: sticky; top: 0;
@@ -329,6 +346,39 @@ footer { padding: 32px 0; text-align: center; }
 }
 #scrollTop.show { opacity: 1; pointer-events: all; }
 #scrollTop:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(26,86,219,0.4); }
+/* INTRO */
+#intro {
+  position: fixed; inset: 0; z-index: 9999;
+  background: #111318;
+  display: flex; align-items: center; justify-content: center;
+  animation: introFade 0.5s ease 2.2s forwards;
+}
+#intro-content { text-align: center; }
+#intro-line {
+  font-family: var(--mono); font-size: 13px; color: #1a56db;
+  letter-spacing: 0.2em; text-transform: uppercase;
+  opacity: 0;
+  animation: introUp 0.6s ease 0.3s forwards;
+}
+#intro-name {
+  font-family: var(--sans); font-size: clamp(28px, 5vw, 52px);
+  font-weight: 700; color: #ffffff; letter-spacing: -0.03em;
+  opacity: 0;
+  animation: introUp 0.7s ease 0.7s forwards;
+}
+#intro-sub {
+  font-family: var(--mono); font-size: 13px; color: #9097ab;
+  letter-spacing: 0.08em; margin-top: 10px;
+  opacity: 0;
+  animation: introUp 0.7s ease 1.1s forwards;
+}
+@keyframes introUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes introFade {
+  to { opacity: 0; pointer-events: none; }
+}
 
 @media (max-width: 600px) {
   .nav-links { display: none; }
@@ -344,6 +394,7 @@ footer { padding: 32px 0; text-align: center; }
   <div id="intro-content">
     <div id="intro-line">Welcome to</div>
     <div id="intro-name">Nguyen's Portfolio</div>
+    <div id="intro-sub">Information Assurance Student</div>
   </div>
 </div>
 
@@ -419,7 +470,10 @@ footer { padding: 32px 0; text-align: center; }
         <div class="edu-period">2024 — 2028</div>
       </div>
       <p class="edu-desc">Foundational knowledge in web technologies, network protocols (TCP/IP, HTTP/HTTPS), and web development. Active participant in Capture the Flag (CTF) competitions and practicing common web vulnerabilities to build a foundation for penetration testing.</p>
-      <div class="edu-badge">🏆 30% Merit Scholarship — 2024</div>
+      <div class="edu-badge-wrap">
+        <div class="edu-badge">🏆 30% Merit Scholarship — 2024</div>
+        <img src="hoc_bong.png" class="badge-popup" alt="Học bổng tài năng FPT">
+      </div>
     </div>
   </section>
 
